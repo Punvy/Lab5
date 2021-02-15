@@ -4,4 +4,8 @@ public enum Mood {
 	LONGING,
     GLOOM,
     APATHY;
+	
+	private Mood() {
+		
+	}
 }
