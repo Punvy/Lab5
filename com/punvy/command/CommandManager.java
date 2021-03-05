@@ -18,10 +18,11 @@ public class CommandManager {
             command = commandWithArgs;
         }
         if(command.equalsIgnoreCase("exit")) {
+            System.out.println("Вы вышли :(");
             new ExitCommand().execute();
         }
         else {
-            System.out.println("Такой команды нет или вы ввели неверные аргументы");
+            System.out.println("Что-то не так... Я не знаю такой команды :(");
         }
     }
 }
