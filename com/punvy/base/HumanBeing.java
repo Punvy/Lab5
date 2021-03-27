@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import java.util.Date;
 
 public class HumanBeing {
+
     public HumanBeing(Integer id, String name, Date creationDate, Boolean realHero, boolean hasToothpick, String soundtrackName,
                       Integer minutesOfWaiting, Coordinates coordinates) {
         this.id = id;
@@ -41,6 +42,4 @@ public class HumanBeing {
     @AbleBeNull
     private Car car; //Поле может быть null
     private Coordinates coordinates; //Поле не может быть null
-
-
 }
