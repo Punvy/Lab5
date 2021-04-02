@@ -9,14 +9,14 @@ import java.util.Date;
 
 public class HumanBeing {
 
-    public HumanBeing(String name, Boolean realHero, String soundtrackName,
+    public HumanBeing(String name, String soundtrackName, boolean hasToothpick,Boolean realHero,
                       Integer minutesOfWaiting, Coordinates coordinates) {
         this.id = id;
         this.creationDate = new Date(System.currentTimeMillis());
         this.name = name;
         this.soundtrackName = soundtrackName;
+        this.hasToothpick = hasToothpick;
         this.realHero = realHero;
-//        this.hasToothpick = hasToothpick;
         this.minutesOfWaiting = minutesOfWaiting;
         this.coordinates = coordinates;
     }
@@ -33,7 +33,7 @@ public class HumanBeing {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private String soundtrackName; //Поле не может быть null
 
-//    private boolean hasToothpick;
+    private boolean hasToothpick;
     private Boolean realHero; //Поле не может быть null
     private Integer minutesOfWaiting; //Поле не может быть null
     private Coordinates coordinates; //Поле не может быть null
