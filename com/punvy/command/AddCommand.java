@@ -1,6 +1,6 @@
 package com.punvy.command;
 
-public class addCommand extends AbstractCommand{
+public class AddCommand extends AbstractCommand{
     @Override
     public String execute() {
         return null;

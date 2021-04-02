@@ -11,43 +11,44 @@ import java.util.Scanner;
 
 public class Creater {
     HashMap<String, String> valueFields = new HashMap<>();
-    ArrayList<Field> Fields = new ArrayList<>();
+    ArrayList<Field> fields = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
 
 
-    public HumanBeing create() {
+    public HumanBeing createHumanBeing() {
 
-        for (int i = 1; i < Fields.size(); i++) {
-            Field field = Fields.get(i);
-            String nameField = field.getName();
-            String value = "";
-            while (value.equals("")) {
-                System.out.print(nameField + ": ");
-                value = scan.nextLine();
-                if(nameField.equals("mood")) {
-                    Mood mood = null;
-                }
-                else if(nameField.equals("mood")) {
+        for(Field field : fields) {
+            String fieldName = field.getName();
+            Class fieldType = field.getType();
+            boolean fieldAbleBeNull = field.getAnnotation(HumanBeing.AbleBeNull.class) instanceof HumanBeing.AbleBeNull;
 
-                }
-                else if(nameField.equals("mood")) {
+            String inputLine = fieldName;
 
+            if (fieldAbleBeNull) {
+                final String RESET = "\033[0m";  // Text Reset
+                final String RED = "\033[0;31m";     // RED
+
+                System.out.printf("%s(%s) %s%n%s", "Это поле", fieldName, "опционально. Y - продолжить ввод поля, " +
+                                "N - пропустить ввод этого поля.", "Введите(Y/N): ");
+                String cont = scan.nextLine();
+                while (!cont.equalsIgnoreCase("y")) {
+                    if (cont.equalsIgnoreCase("n")) { break; }
+                    System.out .println(RED + "Некорректное значение!");
+                    System.out.print(RESET + "Введите(Y/N): ");
+                    cont = scan.nextLine();
                 }
-                if(field.getAnnotation(HumanBeing.AbleBeNull.class) instanceof HumanBeing.AbleBeNull) {
-                    break;
-                }
+                if (cont.equalsIgnoreCase("n")) { continue; }
             }
-            if (field.getAnnotation(HumanBeing.AbleBeNull.class) instanceof HumanBeing.AbleBeNull) {
-                continue;
-            }
-            else {
-                valueFields.put(nameField, value);
+
+            if (fieldType.equals(Boolean.class)) {
+
             }
         }
+
         return null;
     }
 
     public Creater() {
-        Fields.addAll(Arrays.asList(HumanBeing.class.getDeclaredFields()));
+        fields.addAll(Arrays.asList(HumanBeing.class.getDeclaredFields()));
     }
 }

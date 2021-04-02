@@ -15,10 +15,10 @@ public class Main {
 		CommandManager cmdManager = new CommandManager();
 
 		while(true) {
-			System.out.print("Введите команду: ");
-			String command = scanner.nextLine();
-			cmdManager.executeCommand(command);
-			new Creater().create();
+//			System.out.print("Введите команду: ");
+//			String command = scanner.nextLine();
+//			cmdManager.executeCommand(command);
+			new Creater().createHumanBeing();
 		}
 	}
 }
