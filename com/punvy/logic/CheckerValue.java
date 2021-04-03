@@ -19,30 +19,12 @@ public class CheckerValue {
     }
 
     /**
-     * Так же проверяет меньше ли значение чем min.
-     * @return Если меньше - False, Больше или равно - True
-     * @param min Минимально возможное значение
-     */
-    public boolean checkIntegerValue(String stringValue, int min){
-        if (checkIntegerValue(stringValue)) {
-            if(Integer.valueOf(stringValue) >= min) {
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
-
-    /**
-     * Так же проверяет больше ли значение чем min.
+     * Так же проверяет больше ли значение чем max.
      * @return Если больше - False, меньше или равно - True
-     * @param min Минимально возможное значение
-     * @param max Минимально возможное значение
+     * @param max Максимально возможное значение
      */
-    public boolean checkIntegerValue(String stringValue, int min, int max){
-        if(checkIntegerValue(stringValue, min)) {
-            return Integer.valueOf(stringValue) <= max;
-        }
+    public boolean checkIntegerValue(String stringValue, int max){
+        if (checkIntegerValue(stringValue)) { return Integer.valueOf(stringValue) <= max; }
         return false;
     }
 
@@ -62,25 +44,10 @@ public class CheckerValue {
     /**
      * Соответвует {@link #checkIntegerValue(String, int)} для Long
      * @param stringValue Проверяемая строка
-     * @param min Минимально возможное значение
+     * @param max Максимально возможное значение
      */
-    public boolean checkIntegerValue(String stringValue, long min){
-        if (checkIntegerValue(stringValue)) {
-            return Long.valueOf(stringValue) >= min;
-        }
-        return false;
-    }
-
-    /**
-     * Соответвует {@link #checkIntegerValue(String, int, int)} для Long
-     * @param stringValue Проверяемая строка
-     * @param min Минимально возможное значение
-     * @param max Минимально возможное значение
-     */
-    public boolean checkIntegerValue(String stringValue, long min, long max){
-        if(checkIntegerValue(stringValue, min)) {
-            return Integer.valueOf(stringValue) <= max;
-        }
+    public boolean checkLongValue(String stringValue, long max){
+        if (checkLongValue(stringValue)) { return Long.valueOf(stringValue) <= max; }
         return false;
     }
 
