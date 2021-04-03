@@ -1,7 +1,7 @@
 package com.punvy.command;
 
 public class ExitCommand extends AbstractCommand{
-    ExitCommand() {
+    public ExitCommand() {
         setNameCommand("exit");
     }
     @Override

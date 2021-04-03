@@ -3,8 +3,7 @@ package com.punvy;
 import java.util.ArrayDeque;
 import java.util.Scanner;
 
-import com.punvy.command.Command;
-import com.punvy.command.CommandManager;
+import com.punvy.logic.CommandManager;
 import com.punvy.base.HumanBeing;
 import com.punvy.command.Creater;
 

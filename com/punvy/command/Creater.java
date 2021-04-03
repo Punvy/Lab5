@@ -45,7 +45,7 @@ public class Creater {
                         "от -2147483648 до 2147483647): ");
                 valueFields.put(fieldName,creatInteger());
             }
-            
+
         }
 
         return null;
