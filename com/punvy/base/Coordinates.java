@@ -5,7 +5,8 @@ public class Coordinates {
 	private long x; //Максимальное значение поля: 730
     private double y;
     
-    public Coordinates() {
-    	
+    public Coordinates(long x, double y) {
+        this.x = x;
+        this.y = y;
     }
 }

@@ -1,20 +1,18 @@
 package com.punvy.inter;
 
-import com.punvy.base.HumanBeing;
-import com.punvy.base.MaxLongValue;
-import com.punvy.base.Mood;
-import com.punvy.logic.CheckerValue;
+import com.punvy.base.*;
+import com.punvy.checkers.CheckerValue;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.logging.Logger;
 
 public abstract class AbstractUI implements UI{
 
     CheckerValue checker;
 
+
     AbstractUI(){
-         checker = new CheckerValue();
+        checker = new CheckerValue();
+        createUI();
     }
 
     @Override
@@ -25,11 +23,10 @@ public abstract class AbstractUI implements UI{
     @Override
     public abstract void display(TypeMessage type, String message);
 
-    protected Object inputField(Field field){
+    public Object inputField(Field field) {
         String fieldName = field.getName();
         Class fieldType = field.getType();
         boolean fieldAbleBeNull = field.getAnnotation(HumanBeing.AbleBeNull.class) instanceof HumanBeing.AbleBeNull;
-
         if (fieldAbleBeNull) {
             display(TypeMessage.INFO, "Это поле(" + fieldName +") опционально. Y - ввести поле. N - пропустить ввод поля.");
             display(TypeMessage.INPUT, "Введите(Y/N): ");
@@ -41,7 +38,6 @@ public abstract class AbstractUI implements UI{
             }
             if (optional.equalsIgnoreCase("n")) { return null; }
         }
-
         if (fieldType.equals(String.class)) {
             display(TypeMessage.INPUT,fieldName + ": ");
             boolean fieldWithoutEmptyLine = field.getAnnotation(HumanBeing.WithoutEmptyLine.class) instanceof HumanBeing.WithoutEmptyLine;
@@ -108,9 +104,33 @@ public abstract class AbstractUI implements UI{
                 display(TypeMessage.INPUT,fieldName + "(LONGING/GLOOM/APATHY): ");
                 stringValue = inputLine();
             }
-            return Mood.valueOf(stringValue);
+            if(stringValue.equalsIgnoreCase("LONGING")){
+                return Mood.LONGING;
+            }
+            else if(stringValue.equalsIgnoreCase("GLOOM")){
+                return Mood.GLOOM;
+            }
+            else if(stringValue.equalsIgnoreCase("APATHY")){
+                return Mood.APATHY;
+            }
         }
-
+        else if (fieldType.equals(Car.class)) {
+            display(TypeMessage.INFO,fieldName + ": ");
+            try {
+                return new Car((Boolean)inputField(Car.class.getDeclaredField("cool")));
+            } catch (NoSuchFieldException e) {
+                return null;
+            }
+        }
+        else if (fieldType.equals(Coordinates.class)) {
+            display(TypeMessage.INFO, fieldName + ": ");
+            try {
+                return new Coordinates((long)inputField(Coordinates.class.getDeclaredField("x")),
+                        (double)inputField(Coordinates.class.getDeclaredField("y")));
+            } catch (Exception e){
+                return null;
+            }
+        }
         return null;
     }
 

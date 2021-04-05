@@ -3,7 +3,7 @@ package com.punvy.base;
 public class Car {
 	private boolean cool;
 	
-	public Car() {
-		
+	public Car(Boolean cool) {
+		this.cool = cool;
 	}
 }

@@ -1,23 +1,18 @@
 package com.punvy;
 
-import java.util.ArrayDeque;
-import java.util.Scanner;
-
-import com.punvy.logic.CommandManager;
 import com.punvy.base.HumanBeing;
-import com.punvy.command.Creater;
+import com.punvy.inter.AbstractUI;
+import com.punvy.inter.CLI;
+
+import java.lang.reflect.Field;
 
 public class Main {
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		ArrayDeque<HumanBeing> List = new ArrayDeque<HumanBeing>();
-		CommandManager cmdManager = new CommandManager();
-
+		AbstractUI ui = new CLI();
 		while(true) {
-//			System.out.print("Введите команду: ");
-//			String command = scanner.nextLine();
-//			cmdManager.executeCommand(command);
-			new Creater().createHumanBeing();
+			for (Field field : HumanBeing.class.getDeclaredFields()) {
+				ui.inputField(field);
+			}
 		}
 	}
 }

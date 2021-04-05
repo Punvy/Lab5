@@ -1,9 +1,8 @@
-package com.punvy.logic;
+package com.punvy.checkers;
 
 import com.punvy.inter.TypeMessage;
 
 public class CheckerValue {
-
     /**
      * Проверяет можно ли превратить строку в INTEGER
      * @return True - значение можно превратить в Integer; False - значение нельзя превратить в Integer
