@@ -15,11 +15,9 @@ public class CheckerCommand {
     public boolean isCommand(String rawCommand){
         return withoutArgsCommands.contains(rawCommand) || needElementArgCommands.contains(rawCommand) || needSimpleArgCommands.contains(rawCommand);
     }
-
     public boolean commandNeedElementArg(String rawCommand){
         return needElementArgCommands.contains(rawCommand);
     }
-
     public boolean commandNeedSimpleArg(String rawCommand){
         return needSimpleArgCommands.contains(rawCommand);
     }
