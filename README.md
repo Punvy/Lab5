@@ -2,4 +2,4 @@
 
 ## Задание:
 
-![Задание](https://imgur.com/a/Xi0ZgmD)
+![Задание](https://i.imgur.com/vUK6Yhk.png)
