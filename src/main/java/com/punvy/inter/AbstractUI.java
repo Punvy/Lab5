@@ -96,6 +96,16 @@ public abstract class AbstractUI implements UI{
             }
             return Float.valueOf(stringValue);
         }
+        else if (fieldType.equals(double.class) || fieldType.equals(double.class)){
+            display(TypeMessage.INPUT,fieldName + ": ");
+            String stringValue = inputLine();
+            while (!checker.checkDoubleValue(stringValue)) {
+                display(TypeMessage.ERROR, "НЕВЕРНОЕ ЗНАЧЕНИЕ!");
+                display(TypeMessage.INPUT,fieldName + ": ");
+                stringValue = inputLine();
+            }
+            return Double.valueOf(stringValue);
+        }
         else if (fieldType.equals(Mood.class)){
             display(TypeMessage.INPUT,fieldName + "(LONGING/GLOOM/APATHY): ");
             String stringValue = inputLine();
@@ -125,8 +135,8 @@ public abstract class AbstractUI implements UI{
         else if (fieldType.equals(Coordinates.class)) {
             display(TypeMessage.INFO, fieldName + ": ");
             try {
-                return new Coordinates((long)inputField(Coordinates.class.getDeclaredField("x")),
-                        (double)inputField(Coordinates.class.getDeclaredField("y")));
+                return new Coordinates((Long) inputField(Coordinates.class.getDeclaredField("x")),
+                        (Double) inputField(Coordinates.class.getDeclaredField("y")));
             } catch (Exception e){
                 return null;
             }

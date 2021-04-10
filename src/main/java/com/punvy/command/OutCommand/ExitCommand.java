@@ -1,6 +1,8 @@
-package com.punvy.command;
+package com.punvy.command.OutCommand;
 
-public class ExitCommand extends AbstractCommand{
+import com.punvy.command.AbstractCommand;
+
+public class ExitCommand extends AbstractCommand {
     public ExitCommand() {
         setNameCommand("exit");
     }
