@@ -1,6 +1,8 @@
-package com.punvy.command;
+package com.punvy.command.CollectionCommands;
 
-public class AddCommand extends AbstractCommand{
+import com.punvy.command.AbstractCommand;
+
+public class AddCommand extends AbstractCommand {
     @Override
     public String execute() {
         

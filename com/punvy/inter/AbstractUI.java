@@ -4,6 +4,7 @@ import com.punvy.base.*;
 import com.punvy.checkers.CheckerValue;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 
 public abstract class AbstractUI implements UI{
 
@@ -15,14 +16,27 @@ public abstract class AbstractUI implements UI{
         createUI();
     }
 
+    /**
+     * Запускает UI
+     */
     @Override
     public void run() {
 
     }
 
+    /**
+     * Выводит сообщение пользователю
+     * @param type Тип сообщения
+     * @param message Текст сообщения
+     */
     @Override
     public abstract void display(TypeMessage type, String message);
 
+    /**
+     * Метод который дает пользователю ввести значение поля, так же проверяет значения при вводе.
+     * @param field Вводимое поле
+     * @return Значение этого поля
+     */
     public Object inputField(Field field) {
         String fieldName = field.getName();
         Class fieldType = field.getType();
@@ -132,6 +146,18 @@ public abstract class AbstractUI implements UI{
             }
         }
         return null;
+    }
+
+    /**
+     * Метод вводит все необходимые поля для элемента.
+     * @return Hashmap с вводимыми значениями
+     */
+    public HashMap<String,Object> inputHumanBeingElement(){
+        HashMap<String,Object> valueFields = new HashMap<>();
+        for (Field field : HumanBeing.class.getDeclaredFields()){
+            if( !field.getName().equals("id") && !field.getName().equals("creationDate") ) { valueFields.put(field.getName(),inputField(field)); }
+        }
+        return valueFields;
     }
 
     protected abstract void createUI();

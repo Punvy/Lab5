@@ -1,4 +1,4 @@
-package com.punvy.command.infoCommand;
+package com.punvy.command.infoCommands;
 
 public class HelpCommand {
 }

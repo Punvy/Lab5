@@ -9,9 +9,10 @@ import java.lang.reflect.Field;
 public class Main {
 	public static void main(String[] args) {
 		AbstractUI ui = new CLI();
+		ui.inputHumanBeingElement();
 		while(true) {
 			for (Field field : HumanBeing.class.getDeclaredFields()) {
-				ui.inputField(field);
+
 			}
 		}
 	}
