@@ -14,11 +14,10 @@ public class AddCommand extends AbstractCommand {
         this.builder = new HumanBeingBuilder();
     }
 
-    public AddCommand(ArrayDeque<HumanBeing> collection, HashMap<String, Object> valueHumanBeing, HumanBeingBuilder builder) {
+    public AddCommand(ArrayDeque<HumanBeing> collection, HashMap<String, Object> valueHumanBeing) {
         this();
         setCollection(collection);
         this.valueHumanBeing = valueHumanBeing;
-        this.builder = new HumanBeingBuilder();
     }
 
     public AddCommand(HashMap<String,Object> valueHumanBeing, ArrayDeque collection) {

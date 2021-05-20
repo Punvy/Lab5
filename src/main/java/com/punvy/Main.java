@@ -21,6 +21,5 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		AbstractUI ui = new CLI();
 		ui.run();
-
 	}
 }

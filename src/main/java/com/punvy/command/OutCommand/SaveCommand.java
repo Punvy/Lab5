@@ -32,16 +32,11 @@ public class SaveCommand extends AbstractCommand {
 
     @Override
     public HashMap<String, Object> execute() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-
-        file.setWritable(true);
-        try {
-            writer.writeValue(new FileOutputStream(file), collection);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        jsonManager.outputJson(getCollection());
+        HashMap<String,Object> res = new HashMap<>();
+        res.put("collection",getCollection());
+        res.put("message", null);
+        return res;
     }
 
 

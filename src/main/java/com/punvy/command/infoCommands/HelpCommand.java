@@ -15,7 +15,6 @@ public class HelpCommand extends AbstractCommand {
 
     public HelpCommand() {
         super("help", " вывести справку по доступным командам", TypeParametr.NONE);
-        commands = new InfoForCommand().getAllCommand();
     }
 
     public HelpCommand(ArrayDeque collection) {
@@ -24,10 +23,13 @@ public class HelpCommand extends AbstractCommand {
     }
     @Override
     public HashMap<String, Object> execute() throws FileNotFoundException {
+        HashMap<String,Object> res = new HashMap<>();
         StringBuilder stringBuilder = new StringBuilder();
         for (AbstractCommand command : commands) {
-            stringBuilder.append(command.getNameCommand() + " - " + command.getHelpCommand());
+            stringBuilder.append(String.format(command.getNameCommand() + " - " + command.getHelpCommand() + "%n"));
         }
-        return null;
+        res.put("collection",getCollection());
+        res.put("message", stringBuilder.toString());
+        return res;
     }
 }

@@ -1,5 +1,7 @@
 package com.punvy.checkers;
 
+import com.punvy.command.CommandFactory;
+
 public class CommandChecker {
 
     private InfoForCommand infoForCommand;
@@ -10,11 +12,14 @@ public class CommandChecker {
 
     public Boolean checkCommand(String command){
         String[] partCommands = command.split(" ");
+        if (partCommands.length > 2 && partCommands.length < 1) return false;
         String nameCommand = partCommands[0];
-        Integer countCommandPart = partCommands.length;
-        if (infoForCommand.isCommand(nameCommand){
-            if (countCommandPart == 2 && )
+        String argCommand = null;
+        if (partCommands.length == 2) {
+            argCommand = partCommands[1];
         }
-        return false;
+        if (infoForCommand.commandNeedSimpleArg(command) && argCommand == null ||
+                !infoForCommand.commandNeedSimpleArg(command) && argCommand != null) return false;
+        return true;
     }
 }

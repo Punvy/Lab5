@@ -34,6 +34,9 @@ public class HumanBeing implements Comparable<HumanBeing>{
         if(soundtrackName != null) {
             this.id += soundtrackName.length();
         }
+        if (id < 0) {
+            this.id = -this.id;
+        }
         this.name = name;
         this.soundtrackName = soundtrackName;
         this.hasToothpick = hasToothpick;

@@ -4,9 +4,14 @@ import com.punvy.base.HumanBeing;
 
 import java.util.ArrayDeque;
 
-public abstract class AbstractCommand implements Command{
+public abstract class AbstractCommand implements Command, Comparable<AbstractCommand>{
 
     private TypeParametr typeParametr;
+
+    @Override
+    public int compareTo(AbstractCommand o) {
+        return this.getNameCommand().length() - o.getNameCommand().length();
+    }
 
     @Override
     public String toString() {

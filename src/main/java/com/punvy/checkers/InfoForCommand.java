@@ -7,6 +7,8 @@ import com.punvy.command.OutCommand.SaveCommand;
 import com.punvy.command.OutCommand.ScriptCommand;
 import com.punvy.command.TypeParametr;
 import com.punvy.command.infoCommands.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class InfoForCommand {
@@ -19,13 +21,13 @@ public class InfoForCommand {
         return commands;
     }
 
-    private List<AbstractCommand> commands;
+    private List<AbstractCommand> commands = new ArrayList<>();
 
-    private List<String> withoutArgsCommands;
+    private List<String> withoutArgsCommands = new ArrayList<>();
 
-    private List<String> needElementArgCommands;
+    private List<String> needElementArgCommands = new ArrayList<>();
 
-    private List<String> needSimpleArgCommands;
+    private List<String> needSimpleArgCommands = new ArrayList<>();
 
     private List<AbstractCommand> addCommandsToList(List list){
         list.add(new HelpCommand());

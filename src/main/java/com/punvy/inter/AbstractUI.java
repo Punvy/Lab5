@@ -2,6 +2,7 @@ package com.punvy.inter;
 
 import com.punvy.base.*;
 import com.punvy.checkers.CheckerValue;
+import com.punvy.checkers.InfoForCommand;
 import com.punvy.logic.Editor;
 
 import java.io.FileNotFoundException;
@@ -12,9 +13,11 @@ public abstract class AbstractUI implements UI{
 
     private final CheckerValue checker;
     private Editor editor;
+    private InfoForCommand infoForCommand;
 
     AbstractUI(){
         checker = new CheckerValue();
+        this.infoForCommand = new InfoForCommand();
         createUI();
     }
 
@@ -33,7 +36,44 @@ public abstract class AbstractUI implements UI{
         while (true) {
             display(TypeMessage.INPUT, "Введите команду: ");
             String command = inputLine();
-            editor.checkCommand(command);
+            if (editor.checkCommand(command)) {
+                if (command.equals("execute_script")) {
+                    try {
+                        String[] commands = editor.executeCommand(command, null).split("\\r?\\n");
+                        for (String i : commands){
+                            if (editor.checkCommand(i)){
+                                String nameCommand = i.split(" ")[0];
+                                if (infoForCommand.commandNeedElementArg(nameCommand)) {
+                                    editor.executeCommand(i,inputHumanBeingElement());
+                                }
+                                else {
+                                    editor.executeCommand(i,null);
+                                }
+                            }
+                        }
+                    }catch (Exception exception) {
+                        display(TypeMessage.ERROR,"Что-то не так с командой");
+                    }
+                }
+                else {
+                    String nameCommand = command.split(" ")[0];
+                    HashMap<String,Object> valueForHumanBeing = null;
+                    if (infoForCommand.commandNeedElementArg(nameCommand)) {
+                        valueForHumanBeing = inputHumanBeingElement();
+                    }
+                    try {
+                        String message = editor.executeCommand(command,valueForHumanBeing);
+                        if (message != null) {
+                            display(TypeMessage.INFO, message);
+                        }
+                    } catch (Exception e) {
+                            display(TypeMessage.ERROR,"Что-то не так с командой");
+                    }
+                }
+            }
+            else {
+                display(TypeMessage.ERROR,"Что-то не так с командой");
+            }
         }
     }
 
