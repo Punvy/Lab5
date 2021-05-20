@@ -2,14 +2,16 @@ package com.punvy.inter;
 
 import com.punvy.base.*;
 import com.punvy.checkers.CheckerValue;
+import com.punvy.logic.Editor;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public abstract class AbstractUI implements UI{
 
-    CheckerValue checker;
-
+    private final CheckerValue checker;
+    private Editor editor;
 
     AbstractUI(){
         checker = new CheckerValue();
@@ -21,7 +23,18 @@ public abstract class AbstractUI implements UI{
      */
     @Override
     public void run() {
-
+        while (editor == null) {
+            try {
+                editor = new Editor(inputFileFromVariableEnvironment());
+            } catch (FileNotFoundException e) {
+                display(TypeMessage.ERROR, "ТАКОГО ФАЙЛА НЕ СУЩЕСТВУЕТ! ВВЕДИТЕ ДРУГУЮ ПЕРЕМЕНУЮ ОКРУЖЕНИЯ!");
+            }
+        }
+        while (true) {
+            display(TypeMessage.INPUT, "Введите команду: ");
+            String command = inputLine();
+            editor.checkCommand(command);
+        }
     }
 
     /**
@@ -54,16 +67,17 @@ public abstract class AbstractUI implements UI{
         }
         if (fieldType.equals(String.class)) {
             display(TypeMessage.INPUT,fieldName + ": ");
-            boolean fieldWithoutEmptyLine = field.getAnnotation(HumanBeing.WithoutEmptyLine.class) instanceof HumanBeing.WithoutEmptyLine;
             String stringValue = inputLine();
+            boolean fieldWithoutEmptyLine = field.getAnnotation(HumanBeing.WithoutEmptyLine.class) instanceof HumanBeing.WithoutEmptyLine;
             if(fieldWithoutEmptyLine) {
                 while (!checker.checkStringValue(stringValue)) {
                     display(TypeMessage.ERROR, "НЕВЕРНОЕ ЗНАЧЕНИЕ!");
                     display(TypeMessage.INPUT,fieldName + ": ");
                     stringValue = inputLine();
                 }
-                return stringValue;
             }
+            if (stringValue.equals("")) { return null; }
+            else { return stringValue; }
         }
         else if(fieldType.equals(boolean.class) || fieldType.equals(Boolean.class)) {
             display(TypeMessage.INPUT,fieldName + "(true/false): ");
@@ -168,6 +182,17 @@ public abstract class AbstractUI implements UI{
             if( !field.getName().equals("id") && !field.getName().equals("creationDate") ) { valueFields.put(field.getName(),inputField(field)); }
         }
         return valueFields;
+    }
+
+    protected String inputFileFromVariableEnvironment(){
+        while (true) {
+            display(TypeMessage.INPUT, "Введите переменную окружения: ");
+            String file = System.getenv().get(inputLine());
+            if (file != null) {
+                return file;
+            }
+            display(TypeMessage.ERROR, "Такой переменной окружения нет.");
+        }
     }
 
     protected abstract void createUI();

@@ -10,11 +10,12 @@ public class CLI extends AbstractUI{
     @Override
     public void display(TypeMessage type, String message) {
         if (type.equals(TypeMessage.INPUT)) {
-            System.out.print(type.getColor() + message);
+            System.out.print(type.getColor() + message + TypeMessage.INFO.getColor());
         }
         else {
             System.out.println(type.getColor() + message);
         }
+        System.out.print(TypeMessage.INFO.getColor());
     }
 
     @Override

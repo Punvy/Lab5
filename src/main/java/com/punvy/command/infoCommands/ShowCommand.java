@@ -6,9 +6,9 @@ import com.punvy.command.TypeParametr;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
-public class FilterNameCommand extends AbstractCommand {
-    public FilterNameCommand() {
-        super("filter_contains_name ", "вывести элементы, значение поля name которых содержит заданную подстроку", TypeParametr.SIMPLE);
+public class ShowCommand extends AbstractCommand {
+    public ShowCommand(){
+        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", TypeParametr.NONE);
     }
 
     @Override

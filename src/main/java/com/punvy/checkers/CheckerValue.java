@@ -1,6 +1,5 @@
 package com.punvy.checkers;
 
-import com.punvy.inter.TypeMessage;
 
 public class CheckerValue {
     /**
