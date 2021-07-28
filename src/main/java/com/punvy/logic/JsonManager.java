@@ -1,42 +1,41 @@
 package com.punvy.logic;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.punvy.base.HumanBeing;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayDeque;
 
 public class JsonManager {
 
-    private Gson json = new GsonBuilder().setPrettyPrinting().create();
-    private JsonReader jsonReader;
+    private Gson builder = new GsonBuilder().setPrettyPrinting().create();
+    private JsonReader reader;
     private Type listType;
-    private BufferedWriter bufferedWriter;
+    String filePath;
+    private FileWriter writer;
 
-    public JsonManager(String filePath) throws FileNotFoundException {
-        this.jsonReader = new JsonReader(new FileReader(filePath));
+    public JsonManager(String filePath) throws IOException {
+        this.reader = new JsonReader(new FileReader(filePath));
         this.listType = new TypeToken<ArrayDeque<HumanBeing>>(){}.getType();
-        this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath)));
+        this.filePath = filePath;
     }
 
     public ArrayDeque<HumanBeing> inputJson(){
-        ArrayDeque<HumanBeing> arrayDeque = (ArrayDeque<HumanBeing>) json.fromJson(jsonReader, listType);
+        ArrayDeque<HumanBeing> arrayDeque = (ArrayDeque<HumanBeing>) builder.fromJson(reader, listType);
         if(arrayDeque == null){
             return new ArrayDeque<HumanBeing>();
         }
         return arrayDeque;
     }
 
-    public void outputJson(ArrayDeque<HumanBeing> arrayDeque){
-        String jsonString = json.toJson(arrayDeque);
-
+    public void outputJson(ArrayDeque<HumanBeing> arrayDeque) throws IOException {
+        this.writer = new FileWriter(filePath);
+        String jsonString = builder.toJson(arrayDeque);
         try {
-			bufferedWriter.append(jsonString);
-            bufferedWriter.close();
+			writer.write(jsonString);
+            writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

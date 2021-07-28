@@ -31,7 +31,7 @@ public class SaveCommand extends AbstractCommand {
 
 
     @Override
-    public HashMap<String, Object> execute() {
+    public HashMap<String, Object> execute() throws IOException {
         jsonManager.outputJson(getCollection());
         HashMap<String,Object> res = new HashMap<>();
         res.put("collection",getCollection());

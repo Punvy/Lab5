@@ -1,0 +1,7 @@
+add
+add
+remove_first
+save
+show
+clear
+show

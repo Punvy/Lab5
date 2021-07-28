@@ -4,19 +4,25 @@ import com.punvy.base.*;
 import com.punvy.checkers.CheckerValue;
 import com.punvy.checkers.InfoForCommand;
 import com.punvy.logic.Editor;
+import com.punvy.logic.Scripter;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class AbstractUI implements UI{
 
     private final CheckerValue checker;
     private Editor editor;
     private InfoForCommand infoForCommand;
+    private Scripter scripter;
 
     AbstractUI(){
-        checker = new CheckerValue();
+        this.scripter = new Scripter();
+        this.checker = new CheckerValue();
         this.infoForCommand = new InfoForCommand();
         createUI();
     }
@@ -31,49 +37,51 @@ public abstract class AbstractUI implements UI{
                 editor = new Editor(inputFileFromVariableEnvironment());
             } catch (FileNotFoundException e) {
                 display(TypeMessage.ERROR, "ТАКОГО ФАЙЛА НЕ СУЩЕСТВУЕТ! ВВЕДИТЕ ДРУГУЮ ПЕРЕМЕНУЮ ОКРУЖЕНИЯ!");
+            } catch (IOException e) {
+                display(TypeMessage.ERROR, "ТАКОГО ФАЙЛА НЕ СУЩЕСТВУЕТ! ВВЕДИТЕ ДРУГУЮ ПЕРЕМЕНУЮ ОКРУЖЕНИЯ!");
             }
         }
         while (true) {
             display(TypeMessage.INPUT, "Введите команду: ");
             String command = inputLine();
-            if (editor.checkCommand(command)) {
-                if (command.equals("execute_script")) {
-                    try {
-                        String[] commands = editor.executeCommand(command, null).split("\\r?\\n");
-                        for (String i : commands){
-                            if (editor.checkCommand(i)){
-                                String nameCommand = i.split(" ")[0];
-                                if (infoForCommand.commandNeedElementArg(nameCommand)) {
-                                    editor.executeCommand(i,inputHumanBeingElement());
-                                }
-                                else {
-                                    editor.executeCommand(i,null);
-                                }
-                            }
-                        }
-                    }catch (Exception exception) {
-                        display(TypeMessage.ERROR,"Что-то не так с командой");
+            if (command.split(" ").length == 2 && command.split(" ")[0].equals("execute_script")){
+                scripter.setPath(Paths.get(command.split(" ")[1]));
+                try {
+                    List<String> commands = scripter.getListCommand();
+                    for (String i : commands) {
+                        executeCommand(i);
                     }
-                }
-                else {
-                    String nameCommand = command.split(" ")[0];
-                    HashMap<String,Object> valueForHumanBeing = null;
-                    if (infoForCommand.commandNeedElementArg(nameCommand)) {
-                        valueForHumanBeing = inputHumanBeingElement();
-                    }
-                    try {
-                        String message = editor.executeCommand(command,valueForHumanBeing);
-                        if (message != null) {
-                            display(TypeMessage.INFO, message);
-                        }
-                    } catch (Exception e) {
-                            display(TypeMessage.ERROR,"Что-то не так с командой");
-                    }
+                } catch (IOException e) {
+                    System.out.println("Неверный путь!");
                 }
             }
             else {
+                executeCommand(command);
+            }
+        }
+    }
+
+    private void executeCommand(String command){
+        if (editor.checkCommand(command)) {
+            String nameCommand = command.split(" ")[0];
+            HashMap<String,Object> valueForHumanBeing = null;
+            if (infoForCommand.commandNeedElementArg(nameCommand)) {
+                valueForHumanBeing = inputHumanBeingElement();
+            }
+            try {
+                String message = editor.executeCommand(command,valueForHumanBeing);
+                if (message != null) {
+                    display(TypeMessage.INFO, message);
+                }
+            } catch (Exception e) {
                 display(TypeMessage.ERROR,"Что-то не так с командой");
             }
+        }
+        else if (command.split(" ")[0] == "execute_script") {
+            System.out.println("Нельзя запускать скрипт в скрипте!");
+        }
+        else {
+            display(TypeMessage.ERROR,"Что-то не так с командой");
         }
     }
 

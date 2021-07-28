@@ -23,6 +23,7 @@ public class UpdateCommand extends AbstractCommand {
         setCollection(collection);
         this.builder = new HumanBeingBuilder();
         this.valueForHumanBeing = valueForHumanBeing;
+        this.id = Integer.parseInt(arg);
     }
     @Override
     public HashMap<String, Object> execute() throws FileNotFoundException {

@@ -18,8 +18,7 @@ public class CommandChecker {
         if (partCommands.length == 2) {
             argCommand = partCommands[1];
         }
-        if (infoForCommand.commandNeedSimpleArg(command) && argCommand == null ||
-                !infoForCommand.commandNeedSimpleArg(command) && argCommand != null) return false;
+        if ( (infoForCommand.commandNeedSimpleArg(nameCommand) && argCommand == null) || ( !infoForCommand.commandNeedSimpleArg(nameCommand) && argCommand != null) ) return false;
         return true;
     }
 }

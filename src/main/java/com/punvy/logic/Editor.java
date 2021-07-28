@@ -9,6 +9,7 @@ import com.punvy.command.Command;
 import com.punvy.command.CommandFactory;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -20,7 +21,7 @@ public class Editor {
     private CommandFactory commandFactory;
     private PriorityQueue<AbstractCommand> commandHistory;
 
-    public Editor (String filePath) throws FileNotFoundException {
+    public Editor (String filePath) throws IOException {
         this.jsonManager = new JsonManager(filePath);
         this.commandChecker = new CommandChecker();
         this.commandFactory = new CommandFactory();
@@ -47,14 +48,11 @@ public class Editor {
         else if (command.equals("history")) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection, commandHistory);
         }
-        else if (command.equals("execute_script")) {
-            abstractCommand = commandFactory.getCommand(nameCommand, argCommand);
-            HashMap<String,Object> res = abstractCommand.execute();
-            addHistory(abstractCommand);
-            return (String) res.get("commands");
-        }
         else if (valueForHumanBeing == null && argCommand == null) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection);
+        }
+        else if (valueForHumanBeing == null && argCommand != null) {
+            abstractCommand = commandFactory.getCommand(nameCommand, collection, argCommand);
         }
         else if (valueForHumanBeing != null && argCommand == null) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection, valueForHumanBeing);
@@ -67,12 +65,6 @@ public class Editor {
         }
         else if (command.equals("history")) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection, commandHistory);
-        }
-        else if (command.equals("execute_script")) {
-            abstractCommand = commandFactory.getCommand(nameCommand, argCommand);
-            HashMap<String,Object> res = abstractCommand.execute();
-            addHistory(abstractCommand);
-            return (String) res.get("commands");
         }
         HashMap<String,Object> res = abstractCommand.execute();
         collection = (ArrayDeque<HumanBeing>) res.get("collection");

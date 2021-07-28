@@ -4,7 +4,6 @@ import com.punvy.command.AbstractCommand;
 import com.punvy.command.CollectionCommands.*;
 import com.punvy.command.OutCommand.ExitCommand;
 import com.punvy.command.OutCommand.SaveCommand;
-import com.punvy.command.OutCommand.ScriptCommand;
 import com.punvy.command.TypeParametr;
 import com.punvy.command.infoCommands.*;
 
@@ -23,11 +22,11 @@ public class InfoForCommand {
 
     private List<AbstractCommand> commands = new ArrayList<>();
 
-    private List<String> withoutArgsCommands = new ArrayList<>();
+    public List<String> withoutArgsCommands = new ArrayList<>();
 
-    private List<String> needElementArgCommands = new ArrayList<>();
+    public List<String> needElementArgCommands = new ArrayList<>();
 
-    private List<String> needSimpleArgCommands = new ArrayList<>();
+    public List<String> needSimpleArgCommands = new ArrayList<>();
 
     private List<AbstractCommand> addCommandsToList(List list){
         list.add(new HelpCommand());
@@ -38,7 +37,6 @@ public class InfoForCommand {
         list.add(new RemoveIdCommand());
         list.add(new ClearCommand());
         list.add(new SaveCommand());
-        list.add(new ScriptCommand());
         list.add(new ExitCommand());
         list.add(new RemoveFirstCommand());
         list.add(new RemoveLowerCommand());

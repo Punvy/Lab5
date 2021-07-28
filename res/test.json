@@ -1,0 +1,84 @@
+[
+  {
+    "id": 306427078,
+    "creationDate": "Jul 28, 2021 7:01:41 PM",
+    "name": "Eng",
+    "soundtrackName": "rus",
+    "hasToothpick": true,
+    "realHero": true,
+    "minutesOfWaiting": 5,
+    "coordinates": {
+      "x": 10,
+      "y": 234.0
+    },
+    "impactSpeed": 5.231341,
+    "mood": "LONGING",
+    "car": {
+      "cool": false
+    }
+  },
+  {
+    "id": 304030299,
+    "creationDate": "Jul 28, 2021 7:09:34 PM",
+    "name": "Letov",
+    "soundtrackName": "my sdfsdfa",
+    "hasToothpick": false,
+    "realHero": true,
+    "minutesOfWaiting": 123,
+    "coordinates": {
+      "x": 4,
+      "y": 44.0
+    },
+    "impactSpeed": 14.1
+  },
+  {
+    "id": 301923386,
+    "creationDate": "Jul 28, 2021 7:44:41 PM",
+    "name": "erus",
+    "soundtrackName": "rne",
+    "hasToothpick": false,
+    "realHero": false,
+    "minutesOfWaiting": 152,
+    "coordinates": {
+      "x": 52,
+      "y": 123.0
+    },
+    "impactSpeed": 4235.52,
+    "car": {
+      "cool": false
+    }
+  },
+  {
+    "id": 299000033,
+    "creationDate": "Jul 28, 2021 8:33:25 PM",
+    "name": "Snowman",
+    "hasToothpick": true,
+    "realHero": false,
+    "minutesOfWaiting": 12,
+    "coordinates": {
+      "x": 54,
+      "y": 345.0
+    },
+    "impactSpeed": 123.0,
+    "mood": "APATHY",
+    "car": {
+      "cool": false
+    }
+  },
+  {
+    "id": 298978543,
+    "creationDate": "Jul 28, 2021 8:33:46 PM",
+    "name": "Verno",
+    "soundtrackName": "Stop",
+    "hasToothpick": false,
+    "realHero": false,
+    "minutesOfWaiting": 123,
+    "coordinates": {
+      "x": 53,
+      "y": 45.0
+    },
+    "car": {
+      "cool": false
+    }
+  }
+]

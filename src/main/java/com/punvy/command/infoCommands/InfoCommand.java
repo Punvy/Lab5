@@ -20,7 +20,7 @@ public class InfoCommand extends AbstractCommand {
     @Override
     public HashMap<String, Object> execute() throws FileNotFoundException {
         HashMap<String,Object> res = new HashMap<>();
-        res.put("collection",getCollection());
+        res.put("collection",getCollection().toString());
         res.put("message", getCollection().toString());
         return res;
     }
