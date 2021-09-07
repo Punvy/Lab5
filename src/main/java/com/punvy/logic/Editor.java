@@ -34,13 +34,8 @@ public class Editor {
     }
 
     public String executeCommand(String command, HashMap<String,Object> valueForHumanBeing) throws Exception {
-        String nameCommand = null;
-        String argCommand = null;
-        if (command.split(" ").length == 2) {
-            nameCommand = command.split(" ")[0];
-            argCommand = command.split(" ")[1];
-        }
-        else { nameCommand = command; }
+        String nameCommand = (command.split(" ").length == 2) ? command.split(" ")[0] : command;
+        String argCommand = (command.split(" ").length == 2) ? command.split(" ")[1] : null;
         AbstractCommand abstractCommand = null;
         if (command.equals("save")) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection, jsonManager);
@@ -59,12 +54,6 @@ public class Editor {
         }
         else if (valueForHumanBeing != null && argCommand != null) {
             abstractCommand = commandFactory.getCommand(nameCommand, collection, argCommand, valueForHumanBeing);
-        }
-        else if (command.equals("save")) {
-            abstractCommand = commandFactory.getCommand(nameCommand, collection, jsonManager);
-        }
-        else if (command.equals("history")) {
-            abstractCommand = commandFactory.getCommand(nameCommand, collection, commandHistory);
         }
         HashMap<String,Object> res = abstractCommand.execute();
         collection = (ArrayDeque<HumanBeing>) res.get("collection");
