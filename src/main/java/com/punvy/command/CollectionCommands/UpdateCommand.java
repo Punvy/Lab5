@@ -26,18 +26,24 @@ public class UpdateCommand extends AbstractCommand {
         this.id = Integer.parseInt(arg);
     }
     @Override
-    public HashMap<String, Object> execute() throws FileNotFoundException {
+    public HashMap<String, Object> execute() {
         HashMap<String,Object> res = new HashMap<>();
         HumanBeing humanBeing = builder.buildHumanBeing(valueForHumanBeing);
-        humanBeing.setId(id);
         HumanBeing updateElement = null;
         for (HumanBeing i : getCollection()) {
             if (i.getId().equals(id)) {
-                updateElement = i;
+                i.setName(humanBeing.getName());
+                i.setSoundtrackName(humanBeing.getSoundtrackName());
+                i.setHasToothpick(humanBeing.isHasToothpick());
+                i.setRealHero(humanBeing.getRealHero());
+                i.setMinutesOfWaiting(humanBeing.getMinutesOfWaiting());
+                i.setCoordinates(humanBeing.getCoordinates());
+                i.setImpactSpeed(updateElement.getImpactSpeed());
+                i.setMood(updateElement.getMood());
+                i.setCar(humanBeing.getCar());
             }
         }
-        getCollection().remove(updateElement);
-        getCollection().add(humanBeing);
+
         res.put("collection",getCollection());
         res.put("message",null);
         return res;

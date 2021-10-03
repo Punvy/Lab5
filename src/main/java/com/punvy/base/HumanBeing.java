@@ -89,6 +89,11 @@ public class HumanBeing implements Comparable<HumanBeing>{
     private Boolean realHero; //Поле не может быть null
 
     private Integer minutesOfWaiting; //Поле не может быть null
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
     private Coordinates coordinates; //Поле не может быть null
 
     @AbleBeNull
